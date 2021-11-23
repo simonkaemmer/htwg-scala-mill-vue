@@ -92,6 +92,8 @@
 </template>
 
 <script>
+
+import InfoService from "../service/infoService";
   export default {
     name: 'HelloWorld',
 
@@ -147,5 +149,10 @@
         },
       ],
     }),
+    mounted() {
+      InfoService.get('test').then(result => {
+        console.log(result)
+      })
+    }
   }
 </script>
