@@ -1,13 +1,14 @@
 <template>
   <v-card>
     <v-card-text align="center">
-      <div v-if="field" :key="loading">
-        <span v-for="(cell, index) in field" :key="index">
-          <div v-if="index !== 0 && index % 7 === 0" />
-          <AvailableCell v-if="allowedPosition(cell.row, cell.col)" @click.native="makeMove(cell.row, cell.col)" :row="cell.row" :col="cell.col" :color="cell.color" />
-          <UnavailableCell v-else :row="cell.row" :col="cell.col" />
-        </span>
-      </div>
+      <table v-if="Object.keys(field).length !== 0" :key="loading" class="">
+        <tr v-for="(tmp, i) in gameSize" :key="i">
+          <td v-for="(tmp2, j) in gameSize" :key="j">
+            <AvailableCell v-if="allowedPosition(i, j)" @click.native="makeMove(i, j)" :row="i" :col="j" :color="field[i * 7 + j].color" />
+            <UnavailableCell v-else :row="i" :col="j" />
+          </td>
+        </tr>
+      </table>
     </v-card-text>
   </v-card>
 </template>
