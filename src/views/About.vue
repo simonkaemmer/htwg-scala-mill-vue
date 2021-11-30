@@ -26,7 +26,7 @@
     <h1 class="text-center">Instructions</h1>
     <v-row>
       <v-col>
-        <v-card>
+        <v-card :loading="card1Loading">
           <v-card-title>
             <v-icon class="mr-2">mdi-flag-checkered</v-icon>
             Objective
@@ -37,7 +37,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
+        <v-card :loading="card2Loading">
           <v-card-title>
             <v-icon class="mr-2">mdi-alert-circle-outline</v-icon>
             Rules
@@ -82,7 +82,9 @@ export default {
     panel2: false,
     panel2Text: '',
     card1Text: '',
+    card1Loading: true,
     card2Text: [],
+    card2Loading: true,
     carouselImages: [
       {
         src: require('../assets/mill_mill1.gif')
@@ -95,8 +97,14 @@ export default {
   mounted() {
     InfoService.get('about').then(result => this.panel1Text = result)
     InfoService.get('history').then(result => this.panel2Text = result)
-    InfoService.get('objective').then(result => this.card1Text = result)
-    InfoService.get('rules').then(result => this.card2Text = result)
+    InfoService.get('objective').then(result => {
+      this.card1Text = result
+      this.card1Loading = false
+    })
+    InfoService.get('rules').then(result => {
+      this.card2Text = result
+      this.card2Loading = false
+    })
   }
 }
 </script>
