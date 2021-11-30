@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="text-center">Information</h1>
+    <h1 class="text-center white--text">Information</h1>
     <v-row>
       <v-col>
         <v-expansion-panels v-model="panel1">
@@ -23,7 +23,7 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
-    <h1 class="text-center">Instructions</h1>
+    <h1 class="text-center white--text">Instructions</h1>
     <v-row>
       <v-col>
         <v-card :loading="card1Loading">
