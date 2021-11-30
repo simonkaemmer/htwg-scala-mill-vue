@@ -50,6 +50,15 @@ export default {
       MillService.getGame().then(result => {
         this.field = result.game.field
         this.reloadTrigger = !this.reloadTrigger
+        if (result.game.winner !== 0) {
+          let winner = ''
+          if (result.game.winner === 1) {
+            winner = 'White'
+          } else {
+            winner = 'Black'
+          }
+          this.winningScreen(winner)
+        }
       })
     },
     allowedPosition(row, col) {
@@ -58,6 +67,26 @@ export default {
       return allowedPositions.some((item) => {
         if (JSON.stringify(item) === JSON.stringify([Number(row), Number(col)])) {
           return true;
+        }
+      })
+    },
+    winningScreen(winner) {
+      this.$confetti.start();
+      this.$swal({
+        title: `Congratulations to <strong>${winner}</strong> for winning the game!`,
+        width: 600,
+        padding: '3em',
+        closeOnClickOutside: false,
+        allowOutsideClick: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Yes',
+        html: `<p>Do you like to start a new game?</p>`
+      }).then(result => {
+        if (result.isConfirmed) {
+          MillService.changeGame('post', '/').then(() => {
+            this.loadField()
+            this.$confetti.stop();
+          })
         }
       })
     }
