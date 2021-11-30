@@ -15,5 +15,6 @@ Vue.use(VueConfetti)
 new Vue({
   vuetify,
   router,
-  render: h => h(App)
+  render: h => h(App),
+  theme: {dark: true}
 }).$mount('#app')

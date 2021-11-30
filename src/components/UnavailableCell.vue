@@ -1,5 +1,8 @@
-<template>
+<template v-slot:activator="{ on, attrs }">
   <span>
+    <v-slide-y-transition>
+
+    </v-slide-y-transition>
     <img v-if="checkHorizontalCell(row, col)" src="../assets/media/UnavailableCellHorizontal.png" alt="horizontalCell" class="img-fluid">
     <span v-else>
       <img v-if="checkVerticalCell(row, col)" src="../assets/media/UnavailableCellVertical.png" alt="verticalCell" class="img-fluid">

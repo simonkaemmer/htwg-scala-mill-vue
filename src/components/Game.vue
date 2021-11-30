@@ -1,9 +1,7 @@
 <template>
-  <v-card>
+  <v-card style="background-color: white">
     <v-card-text align="center">
-      <hr>
       <GameButtons class="my-3" @callParentFunction="loadField" />
-      <hr>
       <table v-if="Object.keys(field).length !== 0" :key="reloadTrigger">
         <tr v-for="(tmp, i) in gameSize" :key="i">
           <td v-for="(tmp2, j) in gameSize" :key="j">
