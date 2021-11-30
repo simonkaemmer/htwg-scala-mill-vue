@@ -1,5 +1,5 @@
 <template>
-  <v-card style="background-color: white">
+  <v-card class="justify-center">
     <v-card-text align="center">
       <GameButtons class="my-3" @callParentFunction="loadField" />
       <table v-if="Object.keys(field).length !== 0" :key="reloadTrigger">
@@ -85,3 +85,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>
