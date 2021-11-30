@@ -2,7 +2,7 @@
   <span>
     <v-app-bar app clipped-left color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-app-bar-title>Mill</v-app-bar-title>
+      <v-app-bar-title><img src="../assets/mill.png" alt="mill" style="width: 4vh" class="pt-2"></v-app-bar-title>
     </v-app-bar>
     <v-navigation-drawer :clipped="true" v-model="drawer" app dark class="primary lighten-2">
       <v-list-item>
