@@ -49,7 +49,7 @@ export default {
       {
         icon: 'mdi-information-outline',
         title: 'Info',
-        path: '/info'
+        path: '/about'
       }
     ]
   })
