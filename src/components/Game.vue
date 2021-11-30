@@ -1,7 +1,10 @@
 <template>
   <v-card>
     <v-card-text align="center">
-      <table v-if="Object.keys(field).length !== 0" :key="loading" class="">
+      <hr>
+      <GameButtons class="my-3" @callParentFunction="loadField" />
+      <hr>
+      <table v-if="Object.keys(field).length !== 0" :key="reloadTrigger">
         <tr v-for="(tmp, i) in gameSize" :key="i">
           <td v-for="(tmp2, j) in gameSize" :key="j">
             <AvailableCell v-if="allowedPosition(i, j)" @click.native="makeMove(i, j)" :row="i" :col="j" :color="field[i * 7 + j].color" />
@@ -15,12 +18,14 @@
 
 <script>
 import MillService from '../service/millService'
+import GameButtons from './GameButtons'
 import UnavailableCell from './UnavailableCell'
 import AvailableCell from './AvailableCell'
 
 export default {
   name: 'Game',
   components: {
+    GameButtons,
     UnavailableCell,
     AvailableCell
   },
@@ -28,7 +33,8 @@ export default {
     gameSize: 7,
     imageRootPath: '../assets/media/',
     loading: true,
-    field: {}
+    reloadTrigger: false,
+    field: {},
   }),
   mounted() {
     this.loadField()
@@ -43,7 +49,7 @@ export default {
     loadField() {
       MillService.getGame().then(result => {
         this.field = result.game.field
-        this.loading = false
+        this.reloadTrigger = !this.reloadTrigger
       })
     },
     allowedPosition(row, col) {
