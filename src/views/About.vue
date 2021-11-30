@@ -48,14 +48,14 @@
                 <v-list-item :key="`item${index}`">
                   {{ item }}
                 </v-list-item>
-                <v-carousel v-if="index === 2" :key="`carousel${index}`">
+                <v-carousel v-if="index === 2" :key="`carousel${index}`" align="center" height="auto">
                   <v-carousel-item
                       v-for="(image,i) in carouselImages"
                       :key="i"
                       reverse-transition="fade-transition"
                       transition="fade-transition"
                   >
-                    <v-img :src="image.src"></v-img>
+                    <v-img :src="image.src" width="60%"></v-img>
                   </v-carousel-item>
                 </v-carousel>
                 <v-divider
