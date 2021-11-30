@@ -35,7 +35,40 @@
             {{ card1Text }}
           </v-card-text>
         </v-card>
+
+        <v-card :loading="card3Loading" class="mt-4">
+          <v-card-title>
+            <v-icon class="mr-2">mdi-google-controller</v-icon>
+            How to Play
+          </v-card-title>
+          <v-card-text>
+            <v-simple-table>
+              <template v-slot:default>
+                <thead>
+                <tr>
+                  <th class="text-left">
+                    Route
+                  </th>
+                  <th class="text-left">
+                    Info
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                    v-for="item in card3Text"
+                    :key="item.name"
+                >
+                  <td>{{ item.route }}</td>
+                  <td>{{ item.info }}</td>
+                </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
       </v-col>
+
       <v-col>
         <v-card :loading="card2Loading">
           <v-card-title>
@@ -85,6 +118,8 @@ export default {
     card1Loading: true,
     card2Text: [],
     card2Loading: true,
+    card3Text: [],
+    card3Loading: true,
     carouselImages: [
       {
         src: require('../assets/mill_mill1.gif')
@@ -104,6 +139,10 @@ export default {
     InfoService.get('rules').then(result => {
       this.card2Text = result
       this.card2Loading = false
+    })
+    InfoService.get('guide').then(result => {
+      this.card3Text = result
+      this.card3Loading = false
     })
   }
 }
