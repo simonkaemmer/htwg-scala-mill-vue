@@ -1,17 +1,8 @@
 <template>
-  <span>
-    <img v-responsive.lg.xl :src="image" :key="image" alt="availableCell" class="img-fluid" />
-    <img v-responsive.md :src="image" :key="image" width="10%" height="10%" alt="availableCell" class="img-fluid" />
-    <img v-responsive.sm.xs :src="image" :key="image" width="5%" height="5%" alt="availableCell" class="img-fluid" />
-  </span>
+  <img :src="image" :key="image" alt="availableCell" class="img-fluid" />
 </template>
 
 <script>
-
-import vueResponsive from "vue-responsive";
-import Vue from "vue";
-
-Vue.directive('responsive', vueResponsive)
 export default {
   name: 'AvailableCell',
   props: {

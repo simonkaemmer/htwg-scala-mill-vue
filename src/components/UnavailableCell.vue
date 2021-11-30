@@ -1,19 +1,9 @@
 <template>
   <span>
-    <img v-responsive.lg.xl v-if="checkHorizontalCell(row, col)" src="../assets/media/UnavailableCellHorizontal.png" alt="horizontalCell" class="img-fluid">
-    <img v-responsive.md v-if="checkHorizontalCell(row, col)" src="../assets/media/UnavailableCellHorizontal.png" width="10%" height="10%" alt="horizontalCell" class="img-fluid">
-    <img v-responsive.sm.xs v-if="checkHorizontalCell(row, col)" src="../assets/media/UnavailableCellHorizontal.png" width="5%" height="5%" alt="horizontalCell" class="img-fluid">
+    <img v-if="checkHorizontalCell(row, col)" src="../assets/media/UnavailableCellHorizontal.png" alt="horizontalCell" class="img-fluid">
     <span v-else>
-      <span v-if="checkVerticalCell(row, col)">
-        <img v-responsive.lg.xl src="../assets/media/UnavailableCellVertical.png" alt="verticalCell"  class="img-fluid">
-        <img v-responsive.md src="../assets/media/UnavailableCellVertical.png" alt="verticalCell" width="10%" height="10%" class="img-fluid">
-        <img v-responsive.sm.xs src="../assets/media/UnavailableCellVertical.png" alt="verticalCell" width="5%" height="5%" class="img-fluid">
-      </span>
-      <span v-else>
-        <img v-responsive.lg.xl src="../assets/media/Transparent.png" alt="transparentCell" class="img-fluid">
-        <img v-responsive.md src="../assets/media/Transparent.png" alt="transparentCell" width="10%" height="10%" class="img-fluid">
-        <img v-responsive.sm.xs src="../assets/media/Transparent.png" alt="transparentCell" width="5%" height="5%" class="img-fluid">
-      </span>
+      <img v-if="checkVerticalCell(row, col)" src="../assets/media/UnavailableCellVertical.png" alt="verticalCell" class="img-fluid">
+      <img v-else src="../assets/media/Transparent.png" alt="transparentCell" class="img-fluid">
     </span>
   </span>
 </template>
