@@ -1,8 +1,10 @@
 <template>
-  <img :src="image" :key="image" alt="availableCell" class="img-fluid" />
+  <img :src="image" alt="availableCell" class="bounce img-fluid" @click="makeMove(row, col)" />
 </template>
 
 <script>
+import MillService from '../service/millService'
+
 export default {
   name: 'AvailableCell',
   props: {
@@ -66,7 +68,12 @@ export default {
           return key;
         }
       }
-    }
+    },
+    makeMove(row, col) {
+      MillService.makeMove(row, col).then(() => {
+        this.$emit('callParentFunction')
+      })
+    },
   }
 }
 </script>
@@ -75,5 +82,34 @@ export default {
 .img-fluid {
   max-width: 100%;
   height: auto;
+}
+
+@-webkit-keyframes bounce {
+  0%, 100% {
+    -webkit-transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(-5px);
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.bounce:hover {
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 }
 </style>

@@ -7,7 +7,7 @@
       <table v-if="Object.keys(field).length !== 0" :key="reloadTrigger">
         <tr v-for="(tmp, i) in gameSize" :key="i">
           <td v-for="(tmp2, j) in gameSize" :key="j">
-            <AvailableCell v-if="allowedPosition(i, j)" @click.native="makeMove(i, j)" :row="i" :col="j" :color="field[i * 7 + j].color" />
+            <AvailableCell v-if="allowedPosition(i, j)" :row="i" :col="j" :color="field[i * 7 + j].color" @callParentFunction="loadField" />
             <UnavailableCell v-else :row="i" :col="j" />
           </td>
         </tr>
@@ -40,12 +40,6 @@ export default {
     this.loadField()
   },
   methods: {
-    makeMove(row, col) {
-      this.loading = true
-      MillService.makeMove(row, col).then(() => {
-        this.loadField()
-      })
-    },
     loadField() {
       MillService.getGame().then(result => {
         this.field = result.game.field
