@@ -1,0 +1,13 @@
+{
+  "name": "HTWG Mill",
+  "short_name": "Mill",
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#0476F2",
+  "background_color": "#fff",
+  "icons": [{
+    "src": "public/img/icons/mill-16x16.ico",
+    "sizes": "256x256",
+    "type": "image/png"
+  }]
+}

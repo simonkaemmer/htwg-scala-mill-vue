@@ -6,9 +6,10 @@ import router from './router'
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import VueConfetti from 'vue-confetti'
-import './registerServiceWorker'
+import wb from './registerServiceWorker'
 
 Vue.config.productionTip = false
+Vue.prototype.$workbox = wb
 
 Vue.use(VueSweetalert2)
 Vue.use(VueConfetti)

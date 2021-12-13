@@ -15,7 +15,8 @@
     "vue-confetti": "^2.2.2",
     "vue-router": "^3.2.0",
     "vue-sweetalert2": "^5.0.2",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "workbox-webpack-plugin": "^6.4.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
