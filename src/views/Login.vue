@@ -45,6 +45,15 @@
                 @click="submit()"
             >Login
             </v-btn>
+            <v-btn
+                color="primary"
+                class="flex"
+                @click="submitWithGoogle()"
+            >Login with Google
+              <v-icon class="ml-2">
+                mdi-google
+              </v-icon>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -53,7 +62,7 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { GoogleAuthProvider, getAuth, signInWithPopup,signInWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   data() {
@@ -82,6 +91,17 @@ export default {
     }
   },
   methods: {
+    submitWithGoogle() {
+      const auth = getAuth()
+      const provider = new GoogleAuthProvider()
+      signInWithPopup(auth, provider).then(request => {
+        console.log(request)
+        this.$router.push('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
     submit() {
       this.$refs.form.validate()
       if (!this.valid)

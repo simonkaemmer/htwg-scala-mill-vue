@@ -17,12 +17,12 @@ Vue.use(VueSweetalert2)
 Vue.use(VueConfetti)
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDnLKyrQTXbTwoKgnKN2xYA9LV77WmJtPk",
-  authDomain: "htwg-mill-firebase.firebaseapp.com",
-  projectId: "htwg-mill-firebase",
-  storageBucket: "htwg-mill-firebase.appspot.com",
-  messagingSenderId: "1002822741451",
-  appId: "1:1002822741451:web:57575e23e6dbd931951a4e"
+  apiKey: "AIzaSyBlo0ts5Nj4A14uJngPP0RkTgkgyclC6Yk",
+  authDomain: "htwg-mill.firebaseapp.com",
+  projectId: "htwg-mill",
+  storageBucket: "htwg-mill.appspot.com",
+  messagingSenderId: "96531561840",
+  appId: "1:96531561840:web:18d5ffe59607753fa963b5"
 }
 
 initializeApp(firebaseConfig);
