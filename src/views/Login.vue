@@ -7,20 +7,25 @@
             <v-toolbar-title>Login</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-form>
+            <v-form
+                ref="form"
+                v-model="valid"
+            >
               <v-text-field
                   prepend-icon="mdi-account"
                   name="email"
                   label="Email"
-                  type="text"
+                  type="email"
                   v-model="form.email"
-              ></v-text-field>
+                  :rules="emailRules"
+              />
               <v-text-field
                   id="password"
                   name="password"
                   label="Password"
                   :type="showPassword ? 'text' : 'password'"
                   v-model="form.password"
+                  :rules="passwordRules"
               >
                 <template #prepend>
                   <v-icon @click="showPassword = !showPassword">
@@ -58,7 +63,14 @@ export default {
         password: ""
       },
       error: null,
-      showPassword: false
+      showPassword: false,
+      emailRules: [
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ],
+      passwordRules: [
+        v => !!v
+      ],
+      valid: true
     };
   },
   computed: {
@@ -71,17 +83,20 @@ export default {
   },
   methods: {
     submit() {
+      this.$refs.form.validate()
+      if (!this.valid)
+        return
+
       const auth = getAuth()
       signInWithEmailAndPassword(auth, this.form.email, this.form.password)
           .then(result => {
-            alert('success')
-            //this.$router.push('/')
             console.log(result)
-            console.log(result.user.accessToken)
-          }).catch(error => {
-        alert('Wrong E-Mail or Password')
-        console.log(error)
-      })
+            this.$router.push('/')
+          })
+          .catch(error => {
+            alert('Wrong E-Mail or Password')
+            console.log(error)
+          })
     }
   }
 };

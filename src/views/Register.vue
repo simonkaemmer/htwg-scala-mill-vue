@@ -7,13 +7,18 @@
             <v-toolbar-title>Register</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-form>
+            <v-form
+                ref="form"
+                v-model="valid"
+            >
               <v-text-field
                   prepend-icon="mdi-account"
                   name="email"
                   label="Email"
-                  type="text"
+                  type="email"
                   v-model="email"
+                  :rules="emailRules"
+                  required
               />
               <v-text-field
                   id="password"
@@ -21,6 +26,8 @@
                   label="Password"
                   :type="showPassword ? 'text' : 'password'"
                   v-model="password"
+                  :rules="passwordRules"
+                  required
               >
                 <template #prepend>
                   <v-icon @click="showPassword = !showPassword">
@@ -34,6 +41,8 @@
                   label="Enter Password again"
                   :type="showPassword ? 'text' : 'password'"
                   v-model="passwordRepeat"
+                  :rules="passwordRules"
+                  required
               >
                 <template #prepend>
                   <v-icon @click="showPassword = !showPassword">
@@ -69,7 +78,14 @@ export default {
     email: '',
     password: '',
     passwordRepeat : '',
-    showPassword: false
+    showPassword: false,
+    emailRules: [
+      v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+    ],
+    passwordRules: [
+      v => !!v
+    ],
+    valid: true
   }),
   computed: {
     passwordIcon() {
@@ -81,6 +97,10 @@ export default {
   },
   methods: {
     submit() {
+      this.$refs.form.validate()
+      if (!this.valid)
+        return
+
       if (this.password === this.passwordRepeat) {
         const auth = getAuth()
         createUserWithEmailAndPassword(auth, this.email, this.password)
