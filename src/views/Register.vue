@@ -7,6 +7,9 @@
             <v-toolbar-title>Register</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
+            <v-alert v-if="showAlert" type="error">
+              {{ errorMsg }}
+            </v-alert>
             <v-form
                 ref="form"
                 v-model="valid"
@@ -85,7 +88,9 @@ export default {
     passwordRules: [
       v => !!v
     ],
-    valid: true
+    valid: true,
+    showAlert: false,
+    errorMsg: 'Something went wrong!'
   }),
   computed: {
     passwordIcon() {
@@ -97,6 +102,8 @@ export default {
   },
   methods: {
     submit() {
+      this.showAlert = false
+      this.errorMsg = 'Something went wrong!'
       this.$refs.form.validate()
       if (!this.valid)
         return
@@ -105,12 +112,15 @@ export default {
         const auth = getAuth()
         createUserWithEmailAndPassword(auth, this.email, this.password)
             .then(result => {
-              alert('success')
               console.log(result)
+              this.$router.push('/')
             }).catch(error => {
-          alert('error')
-          console.log(error)
-        })
+              this.showAlert = true
+              console.log(error)
+            })
+      } else {
+        this.errorMsg = 'Passwords do not match!'
+        this.showAlert = true
       }
     }
   }

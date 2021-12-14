@@ -7,6 +7,9 @@
             <v-toolbar-title>Login</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
+            <v-alert v-if="showAlert" type="error">
+              {{ errorMsg }}
+            </v-alert>
             <v-form
                 ref="form"
                 v-model="valid"
@@ -79,7 +82,9 @@ export default {
       passwordRules: [
         v => !!v
       ],
-      valid: true
+      valid: true,
+      showAlert: false,
+      errorMsg: 'Something went wrong!'
     };
   },
   computed: {
@@ -92,6 +97,7 @@ export default {
   },
   methods: {
     submitWithGoogle() {
+      this.showAlert = false
       const auth = getAuth()
       const provider = new GoogleAuthProvider()
       signInWithPopup(auth, provider).then(request => {
@@ -99,10 +105,13 @@ export default {
         this.$router.push('/')
       })
       .catch(err => {
+        this.showAlert = true
         console.log(err)
       })
     },
     submit() {
+      this.showAlert = false
+      this.errorMsg = ""
       this.$refs.form.validate()
       if (!this.valid)
         return
@@ -114,7 +123,12 @@ export default {
             this.$router.push('/')
           })
           .catch(error => {
-            alert('Wrong E-Mail or Password')
+            if(error.toString().includes("user-not-found")) {
+              this.errorMsg = "User not found!"
+            } else {
+              this.errorMsg = "Something went wrong!"
+            }
+            this.showAlert = true
             console.log(error)
           })
     }
