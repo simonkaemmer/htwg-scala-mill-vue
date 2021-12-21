@@ -109,28 +109,29 @@ export default {
         console.log(err)
       })
     },
-    submit() {
+    async submit() {
       this.showAlert = false
       this.errorMsg = ""
       this.$refs.form.validate()
       if (!this.valid)
         return
 
-      const auth = getAuth()
-      signInWithEmailAndPassword(auth, this.form.email, this.form.password)
-          .then(result => {
-            console.log(result)
-            this.$router.push('/')
-          })
-          .catch(error => {
-            if(error.toString().includes("user-not-found")) {
-              this.errorMsg = "User not found!"
-            } else {
-              this.errorMsg = "Something went wrong!"
-            }
-            this.showAlert = true
-            console.log(error)
-          })
+      const email = this.form.email
+      const password = this.form.password
+
+      try {
+        await this.$store.dispatch('login', {email, password})
+      } catch (e) {
+        console.log(e)
+        if(e.toString().includes("user-not-found")) {
+          this.errorMsg = "User not found!"
+        } else {
+          this.errorMsg = "Something went wrong!"
+        }
+        this.showAlert = true
+        return
+      }
+      this.$router.push('/')
     }
   }
 };

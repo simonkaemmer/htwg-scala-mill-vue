@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   name: 'Register',
@@ -101,7 +100,7 @@ export default {
     }
   },
   methods: {
-    submit() {
+    async submit() {
       this.showAlert = false
       this.errorMsg = 'Something went wrong!'
       this.$refs.form.validate()
@@ -109,15 +108,21 @@ export default {
         return
 
       if (this.password === this.passwordRepeat) {
-        const auth = getAuth()
-        createUserWithEmailAndPassword(auth, this.email, this.password)
-            .then(result => {
-              console.log(result)
-              this.$router.push('/')
-            }).catch(error => {
-              this.showAlert = true
-              console.log(error)
-            })
+        const email = this.email
+        const password = this.password
+
+        try {
+          await this.$store.dispatch('register', {email, password})
+        } catch (e) {
+          if(e.toString().includes("email-already-in-use")) {
+            this.errorMsg = "Email is already in use!"
+          } else {
+            this.errorMsg = "Something went wrong!"
+          }
+          this.showAlert = true
+          return
+        }
+        this.$router.push('/')
       } else {
         this.errorMsg = 'Passwords do not match!'
         this.showAlert = true

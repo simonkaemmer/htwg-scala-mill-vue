@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
-import Vuex from 'vuex'
+import store from './store'
 
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
@@ -30,7 +30,7 @@ initializeApp(firebaseConfig);
 new Vue({
   vuetify,
   router,
-  Vuex,
+  store,
   render: h => h(App),
   theme: {dark: true}
 }).$mount('#app')
