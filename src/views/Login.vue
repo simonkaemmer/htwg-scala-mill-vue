@@ -51,10 +51,19 @@
             <v-btn
                 color="primary"
                 class="flex"
-                @click="submitWithGoogle()"
+                @click="submitWithProvider('Google')"
             >Login with Google
               <v-icon class="ml-2">
                 mdi-google
+              </v-icon>
+            </v-btn>
+            <v-btn
+                color="primary"
+                class="flex"
+                @click="submitWithProvider('Github')"
+            >Login with GitHub
+              <v-icon class="ml-2">
+                mdi-github
               </v-icon>
             </v-btn>
           </v-card-actions>
@@ -65,7 +74,7 @@
 </template>
 
 <script>
-import { GoogleAuthProvider, getAuth, signInWithPopup,signInWithEmailAndPassword } from 'firebase/auth'
+// import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 
 export default {
   data() {
@@ -96,18 +105,16 @@ export default {
     }
   },
   methods: {
-    submitWithGoogle() {
+    async submitWithProvider(providerType) {
       this.showAlert = false
-      const auth = getAuth()
-      const provider = new GoogleAuthProvider()
-      signInWithPopup(auth, provider).then(request => {
-        console.log(request)
-        this.$router.push('/')
-      })
-      .catch(err => {
+      try {
+        await this.$store.dispatch('loginWithGoogle', providerType)
+      } catch (e) {
         this.showAlert = true
-        console.log(err)
-      })
+        console.log(e)
+        return
+      }
+      this.$router.push('/')
     },
     async submit() {
       this.showAlert = false
